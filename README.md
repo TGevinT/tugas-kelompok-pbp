@@ -1,5 +1,30 @@
 # tugas-kelompok-pbp
 
+# How to Run
+1. Create venv
+```
+python -m venv env
+```
+
+2. Activate venv
+```
+Windows
+env/Scripts/activate
+
+Linux
+source env/bin/activate
+```
+
+3. install dependencies
+```
+pip install -r requirements.txt
+```
+
+4. Run
+```
+python manage.py runserver
+```
+
 # Nama-nama anggota kelompok
 1. Naila Azizah
 2. Amelia Putri Chaerani
