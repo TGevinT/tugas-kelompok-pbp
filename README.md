@@ -10,7 +10,6 @@ python -m venv env
 ```
 Windows
 env/Scripts/activate
-
 Linux
 source env/bin/activate
 ```
