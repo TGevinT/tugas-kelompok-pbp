@@ -32,7 +32,7 @@ python manage.py runserver
 5. Nicholas Sidharta
 
 # Tautan aplikasi Heroku
-TODO
+https://medstem.herokuapp.com/
 
 # Cerita aplikasi yang diajukan serta manfaatnya
 TODO
