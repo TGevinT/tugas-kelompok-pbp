@@ -54,8 +54,12 @@ Fitur ini akan dapat diakses oleh tenaga medis dokter umum dan perawat dan melip
     - show_queue: untuk menunjukkan antrian pasien yang ada
     - patient_status: untuk menunjukkan status dari pasien, seperti masih menunggu, mengeluarkan diri dari antrian, sedang dalam pemeriksaan, sedang menunggu obat, atau sudah selesai berobat.
     - patient_payment_status: untuk menunjukkan apakah pasien sudah membayar biaya berobat atau belum
-4. Lab : track aktivitas lab
-    - activity_status: untuk menunjukkan status dari aktivitas lab, 
+4. Vaksin : track aktivitas vaksin
+    - get_vaksin_data: mendapatkan data mengenai jenis-jenis vaksin
+    - get_stock: mendapatkan data stock 1 jenis vaksin
+    - edit_dose: mengubah dosis vaksin yang diberikan
+    - get_vaksin_history: mendapatkan data vaksin yang sudah didapat (sebagai pasien)
+    - add_vaksin: menambah jenis vaksin yang akan digunakan pada pasien
 5. Apotek : track request obat
     - get_patient_data: untuk mendapatkan data dari pasien
     - add_resep: untuk mengirimkan rekomendasi resep obat 
@@ -68,10 +72,11 @@ Fitur ini akan dapat diakses oleh tenaga medis dokter umum dan perawat dan melip
 
 # Role atau peran pengguna beserta deskripsinya (karena bisa saja lebih dari satu jenis pengguna yang mengakses aplikasi)
 Pengguna yang dituju dalam aplikasi ini adalah healthcare staff dalam rumah sakit. Dalam sebuah rumah sakit terdapat dokter, perawat, apoteker, ahli teknologi lab, radiografer, kasir. Masing - masing memiliki tanggung jawab sesuai dengan pekerjaannya. Peran pengguna dan deskripsinya:
-1. Dokter → mengatur antrian dengan pasien, bisa chat dengan tenaga medis lain,
+1. Dokter → mengatur antrian dengan pasien, bisa chat dengan tenaga medis lain, mengatur dosis vaksin, menambahkan vaksin, dan mendapatkan data tentang vaksin
 2. Perawat → membuat shift kerja sesuai dengan dokter pendamping, chat dengan tenaga medis lain (umumnya apoteker)
-3. Apoteker →tracking request obat, tracking obat yang habis dan akan dibeli lagi, tracking obat yang keluar dan masuk.
+3. Apoteker →tracking request obat, tracking obat yang habis dan akan dibeli lagi, tracking obat yang keluar dan masuk, tracking stock vaksin, dan mendapatkan data tentang vaksin.
 4. Ahli Farmasi → meracik obat yang berjenis racikan berdasarkan request
 5. Ahli teknologi lab → tracking aktivitas lab (alat - alat yang digunakan di lab), tracking hasil lab
 6. Radiografer →tracking aktivitas lab (alat - alat yang digunakan di lab), tracking hasil lab
 7. Kasir → tracking pemasukan harian yang didapatkan di rumah sakit dari konsultasi dokter, pembelian obat di apotek, atau melakukan test lab.
+8. Pasien → melihat riwayat vaksinasi
