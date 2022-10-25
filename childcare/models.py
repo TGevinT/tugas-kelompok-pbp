@@ -9,4 +9,3 @@ class Childcare(models.Model):
     date = models.DateField(auto_now=True)
     doctor = models.TextField()
     description = models.TextField()
-    bill = models.IntegerField()

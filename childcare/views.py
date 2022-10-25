@@ -13,12 +13,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 # Create your views here.
-@login_required(login_url='login/')
 def show_childcare(request):
 
-    user_log = request.user
-
-    database = Childcare.objects.all().filter(user = user_log)
+    database = Childcare.objects.all()
 
     context = {
         'data': database,
