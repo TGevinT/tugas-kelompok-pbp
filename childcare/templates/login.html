@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+
+    <h1>Login</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table class="login_table">
+            <tr>
+                <td><div class="login_username">Username: </div></td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td><div class="login_password">Password: </div></td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="btn btn-primary loginpage_button" type="submit" value="Login"></td>
+            </tr>
+        </table>
+    </form>
+    <div class="control_login">
+        {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+        {% endif %}     
+    </div>
+        
+    <div class="register_block">Belum mempunyai akun? <a href="/todolist/register/">Buat Akun</a></div>
+
+</div>
+
+{% endblock content %}
