@@ -19,6 +19,8 @@ def show_childcare(request):
 
     context = {
         'data': database,
+        'button_register': 'Register',
+        'button_login': 'Login',
     }
 
     return render(request, 'childcare.html', context)
@@ -29,36 +31,19 @@ def show_json(request):
 
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-def login_user(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("childcare:show_childcare")) # membuat response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
-            return response
-        else:
-            messages.info(request, 'Username atau Password salah!')
-    context = {}
-    return render(request, 'login.html', context)
-
-def logout_user(request):
-    logout(request)
-    response = HttpResponseRedirect(reverse('childcare:show_childcare'))
-    response.delete_cookie('last_login')
-    return 
-
-def register(request):
-    form = UserCreationForm()
-
+def create_ajax(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Akun telah berhasil dibuat!')
-            return redirect('/childcare/login/')
-    
-    context = {'form':form}
-    return render(request, 'register.html', context)
+        data_name = request.POST.get("name", "")
+        data_title = request.POST.get("doctor", "")
+        data_desc = request.POST.get("desc", "")
+        model = Childcare(
+                    name = data_name,
+                    doctor=data_title,
+                    description=data_desc)
+        model.save()
+        return redirect('childcare:show_childcare')
+
+    return render(request, 'childcare.html')
+
+def login(request):
+    return render(request, 'login.html')
