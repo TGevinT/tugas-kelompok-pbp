@@ -6,5 +6,7 @@ from childcare.views import *
 app_name= 'childcare'
 
 urlpatterns= [
-   path('', show_childcare, name="childcare"),
+   path('', show_childcare, name="show_childcare"),
+   path('json/', show_json, name="show_json"),
+   path('login/', login, name="login"),
 ]

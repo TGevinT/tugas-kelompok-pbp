@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Registrasi Akun</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "register">
+    
+    <h1>Formulir Registrasi</h1>  
+
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table class="register_form">  
+                {{ form.as_table }}  
+                <tr>  
+                    <td></td>
+                    <td><input class="btn btn-primary login_button register_button" type="submit" value="Daftar"></td> 
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}
