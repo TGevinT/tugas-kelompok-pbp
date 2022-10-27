@@ -1,7 +1,6 @@
 from django import forms
 
-class Staff(forms.Form):
-    name = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+class Queue(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "border-2 rounded-md border-black p-2"}))
+    doctor=forms.CharField(max_length=100, widget=forms.TextInput(attrs={"class": "border-2 rounded-md border-black p-2"}))
+    description = forms.CharField(widget=forms.TextInput(attrs={"class": "border-2 rounded-md border-black p-2"}))

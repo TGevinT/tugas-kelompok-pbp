@@ -4,7 +4,10 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Childcare(models.Model):
+class Staff(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Childcare(Staff):
     name = models.TextField()
     date = models.DateField(auto_now=True)
     doctor = models.TextField()

@@ -8,5 +8,10 @@ app_name= 'childcare'
 urlpatterns= [
    path('', show_childcare, name="show_childcare"),
    path('json/', show_json, name="show_json"),
-   path('login/', login, name="login"),
+   path('json/<int:id>', show_json_by_id, name="json_id"),
+   path('login/', login_user, name="login_user"),
+   path('register/', register, name="register"),
+   path('logout/', logout_user, name="logout"),
+   path('add/', create_ajax, name="create_ajax"),
+   path('delete/<int:id>', delete_row, name="delete_row")
 ]
