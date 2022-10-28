@@ -6,17 +6,18 @@
 
 {% block content %}  
 
-<div class = "register">
+<div class = "register py-16 bg-blue-200">
     
-    <h1>Formulir Registrasi</h1>  
+    <h1 class="text-5xl font-bold text-center pt-8"><span class="text-red-600">Child</span><span class="text-blue-600">care</span> Register</h1>
+    <h3 class="text-center mt-3 text-xl">Welcome!</h3>
 
         <form method="POST" >  
             {% csrf_token %}  
-            <table class="register_form">  
+            <table class="register_form grid grid-cols-1 grid-rows-1 place-items-center pt-8">  
                 {{ form.as_table }}  
                 <tr>  
                     <td></td>
-                    <td><input class="btn btn-primary login_button register_button" type="submit" value="Daftar"></td> 
+                    <td><input class="btn btn-primary login_button register_button text-blue-600 hover:text-white my-4 font-bold" type="submit" value="Daftar"></td> 
                 </tr>  
             </table>  
         </form>
