@@ -13,5 +13,6 @@ urlpatterns= [
    path('register/', register, name="register"),
    path('logout/', logout_user, name="logout"),
    path('add/', create_ajax, name="create_ajax"),
-   path('delete/<int:id>', delete_row, name="delete_row")
+   path('delete/<int:id>', delete_row, name="delete_row"),
+   path('no_login/', no_login, name="no_login"),
 ]
