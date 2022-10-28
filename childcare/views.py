@@ -15,7 +15,7 @@ from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
-@login_required(login_url="login/")
+@login_required(login_url="no_login/")
 def show_childcare(request):
 
     database = Childcare.objects.all()
@@ -23,9 +23,10 @@ def show_childcare(request):
 
     context = {
         'data': database,
-        'button_register': 'Register',
-        'button_login': 'Login',
+        'register_status': 'hidden',
+        'login_status': 'hidden',
         'form' : form,
+        'path' : 'childcare'
     }
 
     return render(request, 'childcare.html', context)
@@ -53,7 +54,10 @@ def login_user(request):
             return redirect('childcare:show_childcare')
         else:
             messages.info(request, 'Username atau Password salah!')
-    context = {}
+    context = {
+        "logout_status": 'hidden',
+        'path' : 'childcare'
+    }
     return render(request, 'login.html', context)
 
 def register(request):
@@ -65,7 +69,11 @@ def register(request):
             form.save()
             return redirect('/childcare/login/')
     
-    context = {'form':form}
+    context = {
+        'form':form,
+        'path' : 'childcare',
+        "logout_status" : 'hidden'
+        }
     return render(request, 'register.html', context)
 
 @login_required(login_url="login/")
@@ -95,3 +103,13 @@ def delete_row(request, id):
         data = Childcare.objects.all().filter(pk = id)
         data.delete()
         return JsonResponse({})
+
+def no_login(request):
+
+    context = {
+        'logout_status': 'hidden',
+        'display_status': 'hidden',
+        'path' : 'childcare'
+    }
+
+    return render(request, 'childcare.html', context)
