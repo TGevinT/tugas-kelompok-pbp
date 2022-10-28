@@ -44,10 +44,10 @@ Dari manfaat yang disebutkan diatas, maka kelompok kami membuat lima fitur dalam
 Fitur ini mengelompokkan halaman sesuai dengan peran user yang login karena setiap peran akan mendapatkani fitur yang berbeda
 2. Childcare : mengatur antrian dokter anak
 Fitur ini akan dapat diakses oleh tenaga medis khusus anak dan meliputi views sebagai berikut:
-    - add_queue: untuk menambahkan seorang pasien ke dalam antrian
-    - show_queue: untuk menunjukkan antrian pasien anak yang ada
-    - patient_status: untuk menunjukkan status dari pasien anak, seperti masih menunggu, mengeluarkan diri dari antrian, sedang dalam pemeriksaan, sedang menunggu obat, atau sudah selesai berobat.
-    - patient_payment_status: untuk menunjukkan apakah pasien sudah membayar biaya berobat atau belum
+    - add queue: untuk menambahkan seorang pasien ke dalam antrian
+    - update queue: untuk menunjukkan/memperbarui antrian pasien anak yang ada
+    - complete a queue: untuk seorang staff childcare menghapus antrian yang sudah selesai
+    - no login page: page untuk pengguna yang tidak login
 3. Rawat Jalan : mengatur antrian dokter umum
 Fitur ini akan dapat diakses oleh tenaga medis dokter umum dan perawat dan meliputi views sebagai berikut:
     - add_queue: untuk menambahkan seorang pasien ke dalam antrian
