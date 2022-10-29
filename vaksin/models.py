@@ -10,9 +10,9 @@ from django.contrib.auth.models import User
 
 class Vaksin(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    dose = models.CharField(max_length=100)
+    date = models.DateField(auto_now=True)
+    name = models.CharField(max_length=100)
+    side_effect = models.CharField(max_length=255)
+    dose = models.FloatField()
     stock = models.IntegerField()
 
