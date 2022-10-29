@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 @login_required(login_url="no_login/")
 def show_childcare(request):
 
-    database = Childcare.objects.all()
+    database = Childcare.objects.all().filter(user = request.user)
     form = Queue()
 
     context = {
@@ -31,9 +31,10 @@ def show_childcare(request):
 
     return render(request, 'childcare.html', context)
 
+@login_required(login_url="login/")
 def show_json(request):
 
-    data = Childcare.objects.all()
+    data = Childcare.objects.filter(user = request.user)
 
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
