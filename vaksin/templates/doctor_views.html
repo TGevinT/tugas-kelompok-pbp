@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <!-- <style>
+        table{
+            border: 1px solid;
+            border-collapse: collapse;
+            width: 80%;
+            margin: 15px auto;
+        }
+
+        th{
+            border: 1px solid darkgoldenrod;
+            background-color: rgb(162, 160, 120);
+        }
+
+        td{
+            padding: 15px;
+            border: 1px solid rgb(109, 108, 106);
+            font-family: 'Lucida Handwriting';
+            background-color: beige;
+            text-align: left;
+        }
+
+        button{
+            margin-right: 10px;
+        }
+
+        h4{
+            text-align: center;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+        }
+    </style> -->
+
+    <center>
+        <h1>Data Vaksin MedStem</h1>
+        <h4>Username: {{user}}</h4>
+        <br>
+        <table id="data_vaksin"></table>
+    </center>
+
+    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Tambah Vaksin</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Formulir Tambah Vaksin</h1>
+        <button type="button" class="btn-close text-white bg-gray-700" data-bs-dismiss="modal" aria-label="Close" value="X"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form_vaksin" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <table>
+              {{ form.as_table }}
+            </table>
+          </div>
+        </form>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-white-center bg-red-700" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary text-white-center bg-blue-700" id="add_button" data-bs-dismiss="modal">Tambah</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" onclick="vaksinList()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#edit_dosis" data-bs-whatever="@getbootstrap">Edit Dosis</button>
+
+<div class="modal fade" id="edit_dosis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Dosis</h1>
+        <button type="button" class="btn-close text-white bg-gray-700" data-bs-dismiss="modal" aria-label="Close" value="X"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_dose" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="dosis" class="col-form-label">Dosis baru</label>
+            <input type="text" class="form-control" id="field_dose" name="vaksin_dose">
+          </div>
+          <div class="mb-3">
+            <label for="vaksin" class="col-form-label">Pilih Vaksin</label>
+            <br>
+            <select for="vaksin_option" id="select_dropdown" name="vaksin_option">
+              
+            </select>
+          </div>
+        </form>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-white-center bg-red-700" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary text-white-center bg-blue-700" id="edit_button" data-bs-dismiss="modal">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" onclick="vaksinList()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#cek_stok" data-bs-whatever="@getbootstrap">Cek Stok</button>
+
+<div class="modal fade" id="edit_dosis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Dosis</h1>
+        <button type="button" class="btn-close text-white bg-gray-700" data-bs-dismiss="modal" aria-label="Close" value="X"></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_dose" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="dosis" class="col-form-label">Dosis baru</label>
+            <input type="text" class="form-control" id="field_dose" name="vaksin_dose">
+          </div>
+          <div class="mb-3">
+            <label for="vaksin" class="col-form-label">Pilih Vaksin</label>
+            <br>
+            <select for="vaksin_option" id="select_dropdown" name="vaksin_option">
+              
+            </select>
+          </div>
+        </form>
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary text-white-center bg-red-700" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary text-white-center bg-blue-700" id="edit_button" data-bs-dismiss="modal">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script>
+        async function getVaksin() {
+            return fetch("{% url 'vaksin:show_json' %}").then((res) => res.json())
+        }
+
+        async function refreshVaksin() {
+            document.getElementById("data_vaksin").innerHTML = ""
+            const vaksin = await getVaksin()
+            let htmlString = `<tr>
+            <th>Nama Vaksin</th>
+            <th>Deskripsi</th>
+            <th>Dosis Vaksin</th>
+            <th>Stok Vaksin</th>
+            <th>Hapus Vaksin</th>
+            </tr>`
+            vaksin.forEach((item) => {
+            htmlString += `\n
+            <tr>
+            <th>${item.fields.name}</th>
+            <th>${item.fields.description}</th>
+            <th>${item.fields.dose}</th>
+            <th>${item.fields.stock}</th>
+            <th>
+                <button id="delete_button" class="btn primary bg-red-600 hover:bg-red-800">
+                    <a class="link  text-white-center hover:text-white-center" onclick="deleteVaksin(${item.pk})">Delete</a>
+                </button>
+            </th>
+            </tr>` 
+            })
+            
+            document.getElementById("data_vaksin").innerHTML = htmlString
+        }
+
+        async function vaksinList() {
+          document.getElementById("select_dropdown").innerHTML=""
+          const vaksin_list = await getVaksin()
+          let htmlString = ''
+          vaksin_list.forEach((item) => {
+            htmlString+= `\n
+            <option value="${item.pk}">${item.fields.name}</option>
+            `
+          })
+          document.getElementById("select_dropdown").innerHTML = htmlString
+        }
+
+        async function addVaksin() {
+            fetch("{% url 'vaksin:add_vaksin' %}", {
+                method: "POST",
+                body: new FormData(document.querySelector('#form_vaksin'))
+            }).then(refreshVaksin)
+            return false
+        }
+
+        async function deleteVaksin(id) {
+            let url = "/vaksin/delete-vaksin/" + id;
+            fetch(url).then(refreshVaksin)
+        }
+
+        async function editDose() {
+          // var e = document.getElementById("select_dropdown");
+          // var value = e.value;
+          // let url = "/vaksin/edit-dose/" + value;
+          fetch("{% url 'vaksin:change_dose' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#edit_dose'))
+          }).then(refreshVaksin)
+        }
+
+        document.getElementById("add_button").onclick = addVaksin
+        document.getElementById("edit_button").onclick = editDose
+        refreshVaksin()
+    </script>
+    {% endblock content %}
