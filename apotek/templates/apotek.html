@@ -96,7 +96,7 @@
                         nama_pasien: $('#nama_pasien').val(),
                         umur_pasien: $('#umur_pasien').val()},
                     function (result){
-                        $(".row-cols-lg-4").append(
+                        $("#mylist").append(
                             `<div class="col-sm-6 mb-3">
                                 <div class="card" style="width: 18rem; text-align: center;">
                                 <div class="card-body">
@@ -157,5 +157,10 @@
         {% endfor %}
     </div>
 
+    {% load static %}
+    <script src="{% static 'js/apotek/apotek_ajax.js' %}"></script>
+    <script>
+        refreshApotek()
+    </script>
 
 {% endblock content %}
