@@ -2,35 +2,119 @@
 
 {% block content %}
 
-    {% load static %}
-    <script src="{% static 'js/childcare/childcare_ajax.js' %}"></script>
-    <script>
-        getData()
-    </script>
-
-    <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Enqueue</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Prescription</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel">x</button>
                 </div>
                 <form>
                     {% csrf_token %}
                     <div class="modal-body">
-                        {% for field in form %}
-                            <div class="grid grid-cols-3 place-items-center">
-                                <div class="col-span-1">{{field.label}}</div>
-                                <div class="col-span-2">{{field}}</div>
-                            </div>
-                        {% endfor %}
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Patient Name</label>
+                            <input type="text" class="form-control" id="nama_pasien">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Patient Age</label>
+                            <input type="text" class="form-control" id="umur_pasien">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Prescription</label>
+
+                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="vue-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="vue-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Paracetamol</label>
+                                    </div>
+                                </li>
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="react-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="react-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Ibuprofen</label>
+                                    </div>
+                                </li>
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="angular-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="angular-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Antibiotik</label>
+                                    </div>
+                                </li>
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="laravel-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="laravel-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Anti-depsresi</label>
+                                    </div>
+                                </li>
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="laravel-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="laravel-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Salep Anti-Inflamasi</label>
+                                    </div>
+                                </li>
+                                <li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input id="laravel-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="laravel-checkbox" class="py-3 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Vitamin</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" onclick="submitHandler()" class="btn btn-primary" id="button">Add</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.get("/apotek/json", function(data) {
+                console.log(data)
+                for (i=0; i < data.length; i++){
+                    $("#mylist").append(
+                        `<div class="col-sm-6 mb-3">
+                            <div class="card" style="width: 18rem; text-align: center;">
+                                <div class="card-body">
+                                    <h5 class="card-title">${data[i].fields.nama_pasien}</h5>
+                                    <p class="card-text">${data[i].fields.umur_pasien}</p>
+                                </div>
+                            </div>
+                        </div>`)
+                }
+            });
+
+            $("#button").click(function(){
+                console.log("something")
+                $.post("/apotek/add/", {
+                        nama_pasien: $('#nama_pasien').val(),
+                        umur_pasien: $('#umur_pasien').val()},
+                    function (result){
+                        $(".row-cols-lg-4").append(
+                            `<div class="col-sm-6 mb-3">
+                                <div class="card" style="width: 18rem; text-align: center;">
+                                <div class="card-body">
+                                <h5 class="card-title">${result.fields.nama_pasien}</h5>
+                                <p class="card-text">${result.fields.umur_pasien}</p>
+                                </div>
+                                </div>
+                                </div>`)
+
+                        $('#nama_pasien').val('')
+                        $('#umur_pasien').val('')
+                    }
+                )
+            })
+
+        });
+
+    </script>
 
 
     <div class="bg-[url('../../static/images/childcare.png')] color-white bg-fixed bg-no-repeat w-full bg-cover bg-center">
@@ -41,245 +125,37 @@
             <div class="text-center text-white font-bold text-3xl pt-14 pb-7">
                 <div class="pb-7">Prescription List</div>
                 <div class="inline-flex">
-                    <button id="new" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Make Prescription</button>
+                    <button id="new" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add Prescription</button>
                     <button id="update" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick="getData()">Update Stock</button>
                 </div>
             </div>
-            <div class="container my-12 mx-auto px-4 md:px-12">
-                <div class="flex flex-wrap -mx-1 lg:-mx-4">
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-{#                            <a href="#">#}
-{#                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">#}
-{#                            </a>#}
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-{#                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">#}
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
+            <div class="overflow-x-auto relative grid grid-cols-1 place-items-center pb-14">
+                <div class="card w-96 glass">
+                    <figure><img src="https://placeimg.com/400/225/arch" alt="car!"/></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Life hack</h2>
+                        <p>How to park your car at your garage?</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary">Learn now!</button>
+                        </div>
                     </div>
-                    <!-- END Column -->
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-{#                            <a href="#">#}
-{#                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">#}
-{#                            </a>#}
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-{#                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">#}
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
-                    </div>
-                    <!-- END Column -->
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-                            <a href="#">
-{#                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">#}
-                            </a>
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-{#                                    <img alt="Placeholder" class="block rounded-full" src="https://picsum.photos/32/32/?random">#}
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
-                    </div>
-                    <!-- END Column -->
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
-                    </div>
-                    <!-- END Column -->
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
-                    </div>
-                    <!-- END Column -->
-
-                    <!-- Column -->
-                    <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-
-                        <!-- Article -->
-                        <article class="overflow-hidden rounded-lg shadow-lg">
-
-{#                            <a href="#">#}
-{#                                <img alt="Placeholder" class="block h-auto w-full" src="https://picsum.photos/600/400/?random">#}
-{#                            </a>#}
-
-                            <header class="flex items-center justify-between leading-tight p-2 md:p-4">
-                                <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
-                                        Article Title
-                                    </a>
-                                </h1>
-                                <p class="text-grey-darker text-sm">
-                                    11/1/19
-                                </p>
-                            </header>
-
-                            <footer class="flex items-center justify-between leading-none p-2 md:p-4">
-                                <a class="flex items-center no-underline hover:underline text-black" href="#">
-                                    <p class="ml-2 text-sm">
-                                        Author Name
-                                    </p>
-                                </a>
-                                <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
-                                    <span class="hidden">Like</span>
-                                    <i class="fa fa-heart"></i>
-                                </a>
-                            </footer>
-
-                        </article>
-                        <!-- END Article -->
-
-                    </div>
-                    <!-- END Column -->
-
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    </div>
+
+    <div class=".row-cols-lg-4">
+        {% for prescription in list_prescription %}
+            <div class="card" style="width: 18rem; text-align: center;">
+                <div class="card-body">
+                    <h5 class="card-title">{{prescription.nama_pasien}}</h5>
+                    <p class="card-text">{{prescription.umur_pasien}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 
 {% endblock content %}

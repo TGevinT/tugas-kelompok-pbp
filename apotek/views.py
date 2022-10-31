@@ -18,21 +18,22 @@ from django.core import serializers
 
 # Create your views here.
 def show_apotek(request):
-    database = Apotek.objects.all()
+    data_apotek = Apotek.objects.all()
 
     context = {
-        'data': database,
-        'button_register': 'Register',
-        'button_login': 'Login',
+        'list_prescription': data_apotek,
+        # 'button_register': 'Register',
+        # 'button_login': 'Login',
+        'username': request.user.username,
     }
 
     return render(request, 'apotek.html', context)
 
 
 def show_json(request):
-    data = Apotek.objects.all()
+    model_prescription = Apotek.objects.all()
 
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    return HttpResponse(serializers.serialize("json", model_prescription), content_type="application/json")
 
 @login_required(login_url="login/")
 def show_json_by_id(request, id):
@@ -49,7 +50,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Akun telah berhasil dibuat!')
-            return redirect('todolist:login')
+            return redirect('apotek:login')
 
     context = {'form': form}
     return render(request, 'register.html', context)
@@ -62,7 +63,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)  # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse('todolist:todolist'))  # membuat response
+            response = HttpResponseRedirect(reverse('apotek:show_apotek'))  # membuat response
             response.set_cookie('last_login',
                                 str(datetime.datetime.now()))  # membuat cookie last_login dan menambahkannya ke dalam response
             return response
@@ -74,7 +75,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('todolist:login'))
+    response = HttpResponseRedirect(reverse('apotek:login'))
     response.delete_cookie('last_login')
     return response
 
@@ -92,36 +93,45 @@ def logout_user(request):
 #
 #     return render(request, 'apotek.html')
 
+
+@login_required(login_url='login/')
+def new_prescription(request):
+    if request.method == 'POST':
+        username = request.user
+        # date = datetime.datetime.now()
+        nama_pasien = request.POST.get('nama_pasien')
+        umur_pasien = request.POST.get('umur_pasien')
+        # bonus
+        is_finished = False
+        Apotek.objects.create(nama_pasien=nama_pasien, umur_pasien=umur_pasien)
+        # Apotek.objects.create(user=username, date=date, title=title, description=description, is_finished=is_finished)
+        response = HttpResponseRedirect(reverse("apotek:show_apotek"))
+        return response
+
+    return render(request, "add_prescription.html")
+
 @csrf_exempt
-def add_data(request):
+def add_prescription(request):
     if request.method == 'POST':
         nama_pasien = request.POST.get('nama_pasien')
         umur_pasien = request.POST.get('umur_pasien')
-        data = Apotek.objects.create(user=request.user, date=datetime.date.today(), title=title, description=description,)
+        prescription = Apotek.objects.create(nama_pasien=nama_pasien, umur_pasien=umur_pasien,)
         result = {
             'fields': {
-                'nama_pasien': data.title,
-                'umur_pasien': data.date,
-                'resep_obat': data.meds_list,
+                'nama_pasien': prescription.nama_pasien,
+                'umur_pasien': prescription.umur_pasien,
             },
-            'pk': data.pk
+            'pk': prescription.pk
         }
         return JsonResponse(result)
 
 
-def checkbox_meds(request):
-    meds_list = ['Antibiotik', 'Paracetamol', 'Ibuprofen', 'Salep alergi', 'Anti-inflamasi', 'Anti-depresi']
-    if request.method == "POST":
-        meds = request.POST.getlist('meds')
-        print('meds')
-    return render(request, 'register.html')
-
-def no_login(request):
-
-    context = {
-        'logout_status': 'hidden',
-        'display_status': 'hidden',
-        'path' : 'childcare'
-    }
-
-    return render(request, 'childcare.html', context)
+# def no_login(request):
+#
+#     context = {
+#         'logout_status': 'hidden',
+#         'display_status': 'hidden',
+#         'path' : 'childcare'
+#     }
+#
+#     return render(request, 'childcare.html', context)
