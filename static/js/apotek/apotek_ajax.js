@@ -1,8 +1,39 @@
+function submitHandler(){
+    // const date = $('#date').val();
+    var patient_name = $('#patient_name').val();
+    var patient_age = $('#patient_age').val();
+    var patient_gender = $('#patient_gender').val();
+    var medicine = $('#medicine').val();
+
+    $.ajax({
+        type: "POST",
+        url: "add/",
+        async:true,
+        data: {
+            // date: date,
+            patient_name: patient_name,
+            patient_age: patient_age,
+            patient_gender: patient_gender,
+            medicine: medicine,
+            csrfmiddlewaretoken:$('input[name = csrfmiddlewaretoken]').val(),
+        },
+        success: function (response) {
+            document.getElementById("form-create").reset();
+            $("#close").click();
+            getPrescriptionForm();
+        },
+        error : function (error) {
+            console.log(error)
+        }
+    });
+}
+
+
 function getPrescriptionForm(){
-    $("#mytable").empty();
+    $("#rows").empty();
     $.get('json/', function(data) {
         $.each(data, function(index, value) {
-            $("#mytable").append(
+            $("#rows").append(
                 `<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 ${value.fields.patient_name}
@@ -22,32 +53,3 @@ function getPrescriptionForm(){
         });
     });
 }
-
-function submitHandler(){
-    var patient_name = $('#patient_name').val();
-    var patient_age = $('#patient_age').val();
-    var patient_gender = $('#patient_gender').val();
-    var medicine = $('#medicine').val();
-
-    $.ajax({
-        type: "POST",
-        url: "add/",
-        async:true,
-        data: {
-            patient_name: patient_name,
-            patient_age: patient_age,
-            patient_gender: patient_gender,
-            medicine: medicine,
-            csrfmiddlewaretoken:$('input[name = csrfmiddlewaretoken]').val(),
-        },
-        success: function (response) {
-            document.getElementById("form").reset();
-            $("#close").click();
-            getPrescriptionForm();
-        },
-        error : function (error) {
-            console.log(error)
-        }
-    });
-}
-
