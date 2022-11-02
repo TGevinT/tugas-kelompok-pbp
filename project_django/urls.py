@@ -23,4 +23,5 @@ urlpatterns = [
     path('kasir/', include('kasir.urls')),
     path('vaksin/', include('vaksin.urls')),
     path('checkup/',include('checkup.urls')),
+    path('apotek',include('apotek.urls'))
 ]

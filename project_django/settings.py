@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'kasir',
     'vaksin',
     'checkup',
+    'apotek'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
