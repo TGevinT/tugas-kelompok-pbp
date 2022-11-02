@@ -22,5 +22,4 @@ urlpatterns = [
     path('childcare/', include('childcare.urls')),
     path('kasir/', include('kasir.urls')),
     path('vaksin/', include('vaksin.urls')),
-
 ]
