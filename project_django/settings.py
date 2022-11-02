@@ -31,7 +31,6 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,14 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'example_app',
     'childcare',
-<<<<<<< HEAD
-    'checkup',
-=======
     'kasir',
     'vaksin',
->>>>>>> c993e08215c2cf2be34cf6999e6ecc4da393c095
+    'checkup',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
