@@ -92,7 +92,7 @@ def create_checkup_ajax(request):
             paid = False
         create = Checkup(user=request.user,name=name,date=date,doctor=doctor,status_checkup_type=status_checkup_type,recommendations=recommendations,paid=paid)
         create.save()
-        return JsonResponse({"checkup":"new checkup"},status=200)
+        return HttpResponse({"Checkup":"new checkup"},status=200)
 
 @login_required(login_url="login/")
 def show_json(request):
@@ -107,6 +107,6 @@ def home(request):
     }
     return render(request,'checkup.html',context)
 
-def refresh_json(request,id):
-    data_checkup = Checkup.objects.filter(pk=id)
-    return HTTPResponse(serializers.serialize('json',data_checkup),content_type='application/json')
+def refresh_json(request):
+    data_checkup = Checkup.objects.all()
+    return HttpResponse(serializers.serialize("json", data_checkup))
