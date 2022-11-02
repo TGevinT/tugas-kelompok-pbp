@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+ {% load static %}
+
+ 
+<script src="{% static 'js/checkup/checkup.js' %}">
+</script>
+<script>getDataCheckUp() 
+</script>
+
+<!-- Modal Form-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" text-align="center">Create</h1>
+                <button type="butt
+                on" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="" method="POST" id="createCheckup">
+            {% csrf_token %}
+            <!-- {{form.as_table}}
+                
+            </form> -->
+            <div class="form-group">
+                <form method="POST" action="" id="create_checkup">
+                    {% csrf_token %}
+                    <div style="text-align: start;" class="form-group">
+                        <label for="InputName">Name:</label>
+                        <input type="text" name="name" class="form-control" id="InputName" placeholder="Name" required>
+                    </div>
+                    <div style="text-align: start;">
+                        <label for="InputDate">Date:</label>
+                        <input type="date" name="date" class="form-control" id="InputDate" placeholder="Date" value="" min="2000-01-01" max="2050-12-31">
+                    </div>
+                    <div style="text-align: start;">
+                        <label for="InputDoctor">Doctor:</label>
+                        <input type="text" name="doctor" class="form-control" id="InputDoctor" placeholder="Doctor" required>
+                    </div>
+                    <div style="text-align: start;">
+                        <label for="InputStatus">Status:</label>
+                        <select class="custom-select">
+                            <option value="TUNGGU">Masih menunggu</option>
+                            <option value="KELUAR">Mengeluarkan diri</option>
+                            <option value="PERIKSA">Pemeriksaan</option> 
+                            <option value="OBAT">Menunggu obat</option>
+                            <option value="SELESAI">Selesai</option>
+                        </select>
+                    </div>
+                    <div style="text-align: start;">
+                        <label for="InputRecommendations">Recommendations:</label>
+                        <textarea name="recommendations" class="form-control" id="InputRecommendations" placeholder="Recommendations" value="Required recommendations" required></textarea>
+                    </div>
+                    <div style="text-align: start;">
+                        <label for="InputPaid">Paid: </label>
+                        <input class="form-check-input" type="checkbox" value="" id="InputPaid">
+                        <label class="form-check-label" for="InputPaid">
+                        Paid
+                        </label>
+                        <input class="form-check-input" type="checkbox" value="" id="InputPaid">
+                        <label class="form-check-label" for="InputPaid">
+                        Unpaid
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="addData()">Submit</button>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+
+<!--Default Awal-->
+    <!--Bagian Awal-->
+    <div class="bg-[url('../../static/images/checkup.png')] color-white bg-fixed bg-no-repeat w-full bg-cover bg-center">
+        <div class="bg-[#00000066] font-bold text-center text-5xl py-40 text-stone-50">CheckUp</div>  
+    </div>
+    <!--Description-->
+    <div class="bg-cyan-700">
+        <h1 class="text-center font-bold text-rose-200 text-3xl py-12">What Is Check Up?</h1>
+        <p class="text-white text-center text-base sm:text-xl pb-14 px-6 sm:px-14">
+            Check-up, which means to carry out annual regular physician checks and to be performed necessary examinations, is one of the strongest weapons in the hands of modern human in order to maintain a healthy life. Besides, it carries the purpose of referring the yet clinically asymptomatic diseases to treatment by early diagnosis. Chronic diseases with ongoing treatment are also kept under control with Check-up and follow-up protocols.
+        </p>
+    </div>
+    <div class="{{display_status}}">
+        <hr class="text-white border-2 font-bold mx-14"></hr>
+        <div  class="inline-flex">
+            <button class="bg-indigio-500 px-2 py-1 text-white" type="button" id="create" onclick="addData()">"Add"</button>
+            <button class="bg-indigio-500 px-2 py-1 text-white" type="button" id="delete" onclick="deleteData()">"delete"</button>
+        </div>
+    </div>
+    <!--Table-->
+    <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-700 py-10">
+        <!--Components-->
+        <h1 class="text-lg text-gray-400 font-medium">Check Up Table</h1>
+        <div class="flex flex-col mt-6">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="shadow overflow-hidden sm:rounded-lg">
+                    <table class="min-2 full text-sm text-gray-500">
+                        <thead class="bg-gray-800 text-s uppercase font-medium">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Name 
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Visit Time
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Doctor
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Recommendation
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left tracking-wider">
+                                    Payment
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows">
+                        </tbody>
+                    </table>
+                    <button type="button" class="text-white bg-green-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-5 mb-2 dark:bg-green-600	dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-whatever="@getbootstrap">Create Checkup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
