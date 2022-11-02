@@ -92,7 +92,7 @@ def create_checkup_ajax(request):
             paid = False
         create = Checkup(user=request.user,name=name,date=date,doctor=doctor,status_checkup_type=status_checkup_type,recommendations=recommendations,paid=paid)
         create.save()
-        return HttpResponse({"Checkup":"new checkup"},status=200)
+        return JsonResponse({},status=200)
 
 @login_required(login_url="login/")
 def show_json(request):

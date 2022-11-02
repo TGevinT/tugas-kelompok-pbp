@@ -28,7 +28,7 @@ python manage.py runserver
 # Nama-nama anggota kelompok
 1. Naila Azizah - 2106705814
 2. Amelia Putri Chaerani - 2106751985
-3. Teuku Gevin Taufan
+3. Teuku Gevin Taufan - 2106750194
 4. Rafif Naufal Rahmadika - 2106636275
 5. Nicholas Sidharta - 2106752294
 
@@ -42,33 +42,36 @@ Aplikasi yang akan kami buat adalah sebuah aplikasi untuk memudahkan pelayanan r
 Dari manfaat yang disebutkan diatas, maka kelompok kami membuat lima fitur dalam menunjang aplikasi ini, sebagai berikut:
 1. Implementasi Register, login, logout
 Fitur ini mengelompokkan halaman sesuai dengan peran user yang login karena setiap peran akan mendapatkani fitur yang berbeda
-2. Childcare : mengatur antrian dokter anak
+2. Childcare (Nicholas Sidharta): mengatur antrian dokter anak
 Fitur ini akan dapat diakses oleh tenaga medis khusus anak dan meliputi views sebagai berikut:
     - add queue: untuk menambahkan seorang pasien ke dalam antrian
     - update queue: untuk menunjukkan/memperbarui antrian pasien anak yang ada
     - complete a queue: untuk seorang staff childcare menghapus antrian yang sudah selesai
     - no login page: page untuk pengguna yang tidak login
-3. Rawat Jalan : mengatur antrian dokter umum
+3. Rawat Jalan (Amelia Putri Chaerani) : mengatur antrian dokter umum
 Fitur ini akan dapat diakses oleh tenaga medis dokter umum dan perawat dan meliputi views sebagai berikut:
     - add_queue: untuk menambahkan seorang pasien ke dalam antrian
     - show_queue: untuk menunjukkan antrian pasien yang ada
     - patient_status: untuk menunjukkan status dari pasien, seperti masih menunggu, mengeluarkan diri dari antrian, sedang dalam pemeriksaan, sedang menunggu obat, atau sudah selesai berobat.
     - patient_payment_status: untuk menunjukkan apakah pasien sudah membayar biaya berobat atau belum
-4. Vaksin : track aktivitas vaksin
+4. Vaksin (Rafif Naufal Rahmadika) : track aktivitas vaksin
     - get_vaksin_data: mendapatkan data mengenai jenis-jenis vaksin
     - get_stock: mendapatkan data stock 1 jenis vaksin
     - edit_dose: mengubah dosis vaksin yang diberikan
-    - get_vaksin_history: mendapatkan data vaksin yang sudah didapat (sebagai pasien)
+    - get_added_vaksin: mendapatkan data vaksin yang hanya ditambahkan oleh user
     - add_vaksin: menambah jenis vaksin yang akan digunakan pada pasien
-5. Apotek : track request obat
+5. Apotek (Naila Azizah): track request obat
     - get_patient_data: untuk mendapatkan data dari pasien
     - add_resep: untuk mengirimkan rekomendasi resep obat 
     - get_resep: untuk mendapatkan data obat yang direkomendasikan oleh dokter kepada pasien
     - resep_status: untuk menunjukkan status dari pasien, seperti apakah sedang menunggu obat atau sudah mengambil obat
     - patient_payment_status: untuk menunjukkan apakah pasien sudah membayar obat atau belum
-6. Kasir : track transaksi yang dilakukan perhari
-    - get_payment_data: untuk mendapatkan data transaksi yang sudah terjadi hari itu
-    - get_payment: untuk mengambil uang yang ada di mesin kasir
+6. Kasir (Teuku Gevin Taufan): track transaksi yang dilakukan perhari
+    - create_bill : untuk memasukkan anggaran yang harus dibayar oleh pasien yang hanya ditambahkan oleh penjaga kasir
+    - payment_bill : untuk memudahkan pembayaran obat-obat atau perawatan pasien berdasarkan bill yang ada melalui kasir
+    - update_bill : untuk mengupdate bill baru jika sudah di tambahkan
+    - delete_bill : untuk mengahapus bill yang salah di input dan hanya penjaga kasir yang bisa menghapusnya
+    - patient_status_payment: status patient sudah membayar atau belum dari beli obat-obatan atau perawatan (warna merah belum, warna hijau sudah) di bill
 
 # Role atau peran pengguna beserta deskripsinya (karena bisa saja lebih dari satu jenis pengguna yang mengakses aplikasi)
 Pengguna yang dituju dalam aplikasi ini adalah healthcare staff dalam rumah sakit. Dalam sebuah rumah sakit terdapat dokter, perawat, apoteker, ahli teknologi lab, radiografer, kasir. Masing - masing memiliki tanggung jawab sesuai dengan pekerjaannya. Peran pengguna dan deskripsinya:
@@ -79,4 +82,3 @@ Pengguna yang dituju dalam aplikasi ini adalah healthcare staff dalam rumah saki
 5. Ahli teknologi lab → tracking aktivitas lab (alat - alat yang digunakan di lab), tracking hasil lab
 6. Radiografer →tracking aktivitas lab (alat - alat yang digunakan di lab), tracking hasil lab
 7. Kasir → tracking pemasukan harian yang didapatkan di rumah sakit dari konsultasi dokter, pembelian obat di apotek, atau melakukan test lab.
-8. Pasien → melihat riwayat vaksinasi

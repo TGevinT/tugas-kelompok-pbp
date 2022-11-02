@@ -8,7 +8,7 @@ class Staff(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Childcare(Staff):
-    name = models.TextField()
+    name = models.CharField(max_length = 100)
     date = models.DateField(auto_now=True)
-    doctor = models.TextField()
-    description = models.TextField()
+    doctor = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 9999)

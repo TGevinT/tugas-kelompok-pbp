@@ -20,5 +20,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('example_app.urls')),
     path('childcare/', include('childcare.urls')),
+<<<<<<< HEAD
     path('checkup/',include('checkup.urls'))
+=======
+    path('kasir/', include('kasir.urls')),
+    path('vaksin/', include('vaksin.urls')),
+>>>>>>> c993e08215c2cf2be34cf6999e6ecc4da393c095
 ]
