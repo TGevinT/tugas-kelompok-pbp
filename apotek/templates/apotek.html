@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="bg-[url('../../static/images/pharmacy.png')] color-white bg-fixed bg-no-repeat w-full bg-cover bg-center">
+        <div class="bg-[#00000066] font-bold text-center text-5xl py-40 text-white">Pharmacy</div>
+    </div>
+    <div class="bg-stone-800 py-10">
+    <h1 class="font-bold text-5xl text-white text-center pb-8">About</h1>
+    <div class="py-5 mb-10">
+        <p class="text-white mx-20 mb-2 text-xl">With the Pharmacy feature in MedStem, making and tracking patient prescriptions has never been easier!
+            Pharmacy allows you to add prescriptions with the corresponding patient data to better organize your day-to-day activities!
+        </p>
+    </div>
+    <div class="bg-stone-800">
+        <hr class="mx-14 text-white border-2"/>
+        <div class="text-center text-white font-bold text-3xl pt-14 pb-7">
+            <div class="pb-7">Prescription List</div>
+            <div class="inline-flex">
+                <button id="create" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 {{button}}" data-bs-toggle="modal" data-bs-target="#addPrescriptionModal">Add Prescription</button>
+            </div>
+        </div>
+        <div class="overflow-x-auto relative grid grid-cols-1 place-items-center pb-14">
+            <table class="w-5/6 text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Patient Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Patient Age
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Patient Gender
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Prescription
+                    </th>
+                </tr>
+                </thead>
+                <tbody id="rows">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'js/apotek/apotek_ajax.js' %}"></script>
+    <script>
+        getPrescriptionForm();
+    </script>
+
+
+    <div class="modal fade" id="addPrescriptionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Prescription</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <form id="form">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Patient Name</label>
+                            <input type="text" class="form-control" id="patient_name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Patient Age</label>
+                            <input type="text" class="form-control" id="patient_age">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Patient Gender (F / M / Rather not specify)</label>
+                            <input type="text" class="form-control" id="patient_gender">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Prescription</label>
+                            <input type="text" class="form-control" id="medicine">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" onclick="submitHandler()" class="btn btn-primary text-blue-600 hover:text-white">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
