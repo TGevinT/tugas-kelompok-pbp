@@ -18,9 +18,9 @@ class Migration(migrations.Migration):
             name='Apotek',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nama_pasien', models.CharField(max_length=100)),
-                ('umur_pasien', models.IntegerField(max_length=3)),
-                ('is_finished', models.BooleanField(blank=True, null=True)),
+                ('patient_name', models.CharField(max_length=100)),
+                ('patient_age', models.IntegerField(max_length=3)),
+                ('medicine', models.TextField(max_length=100)),
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
