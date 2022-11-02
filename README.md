@@ -61,11 +61,12 @@ Fitur ini akan dapat diakses oleh tenaga medis dokter umum dan perawat dan melip
     - get_added_vaksin: mendapatkan data vaksin yang hanya ditambahkan oleh user
     - add_vaksin: menambah jenis vaksin yang akan digunakan pada pasien
 5. Apotek (Naila Azizah): track request obat
-    - get_patient_data: untuk mendapatkan data dari pasien
-    - add_resep: untuk mengirimkan rekomendasi resep obat 
-    - get_resep: untuk mendapatkan data obat yang direkomendasikan oleh dokter kepada pasien
-    - resep_status: untuk menunjukkan status dari pasien, seperti apakah sedang menunggu obat atau sudah mengambil obat
-    - patient_payment_status: untuk menunjukkan apakah pasien sudah membayar obat atau belum
+    - get_patient_data: untuk mendapatkan data dari apoteker
+    - add_prescription: fitur membuat daftar obat preskripsi tiap pasien yang disertai dengan data
+        - patient_name
+        - patient_age
+        - patient_gender
+        - medicine
 6. Kasir (Teuku Gevin Taufan): track transaksi yang dilakukan perhari
     - create_bill : untuk memasukkan anggaran yang harus dibayar oleh pasien yang hanya ditambahkan oleh penjaga kasir
     - payment_bill : untuk memudahkan pembayaran obat-obat atau perawatan pasien berdasarkan bill yang ada melalui kasir
