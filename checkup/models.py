@@ -2,14 +2,14 @@ from email.policy import default
 from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Staff(models.Model):
     user = models.CharField(max_length=64)
 
 class Checkup(models.Model):
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.TextField()
     date = models.DateTimeField(default=timezone.now)
     doctor = models.TextField(max_length=64)

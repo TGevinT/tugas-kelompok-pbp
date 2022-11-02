@@ -3,15 +3,72 @@
  {% block content %}
 
  {% load static %}
-
- 
 <script src="{% static 'js/checkup/checkup.js' %}">
 </script>
-<script>getDataCheckUp() 
-</script>
 
+<!--Modal Form-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Your Checkup Appointment</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="create_checkup">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Name: </label>
+            <input type="text" class="form-control" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="date-booking" class="col-form-label">Date: </label>
+            <input type="date" class="form-control" name="date" value="" min="2000-01-01" max="2050-12-31" required>
+          </div>
+          <div class="form-group">
+            <label for="doctor-name" class="col-form-label">Doctor: </label>
+            <input type="text" class="form-control" name="doctor" value="" min="2000-01-01" max="2050-12-31" required>
+          </div>
+          <div class="form-group">
+            <label for="status-patient" class="col-form-label">Status: </label>
+            <select class="custom-select" name="status_checkup_type">
+                <option value="TUNGGU">Masih menunggu</option>
+                <option value="KELUAR">Mengeluarkan diri</option>
+                <option value="PERIKSA">Pemeriksaan</option> 
+                <option value="OBAT">Menunggu obat</option>
+                <option value="SELESAI">Selesai</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recommedations-requirements" class="col-form-label">Recommendation:</label>
+            <textarea class="form-control" name="recommendations"></textarea>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+                <label for="paid-patient" class="col-form-label">Paid:</label>
+                <input class="'form-check-input" type="checkbox" value="true" name="paid">
+                <label class="form-check-label" for="paid-patient">
+                    Paid
+                </label>
+                <input class="'form-check-input" type="checkbox" value="false" name="paid">
+                <label class="form-check-label" for="paid-patient">
+                    Unpaid
+                </label>
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addData()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal Form-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,12 +77,12 @@
                 on" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="" method="POST" id="createCheckup">
+            <form action="" method="POST" id="create_checkup">
             {% csrf_token %}
-            <!-- {{form.as_table}}
+             {{form.as_table}}
                 
             </form> -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <form method="POST" action="" id="create_checkup">
                     {% csrf_token %}
                     <div style="text-align: start;" class="form-group">
@@ -74,12 +131,11 @@
         </div>
     </div>
     </div>
-</div>
-</body>
-
+</div>  -->
+<!-- </body> -->
 <!--Default Awal-->
     <!--Bagian Awal-->
-    <div class="bg-[url('../../static/images/checkup.png')] color-white bg-fixed bg-no-repeat w-full bg-cover bg-center">
+    <div class="bg-[url('../../static/images/checkup.jpg')] color-white bg-fixed bg-no-repeat w-full bg-cover bg-center">
         <div class="bg-[#00000066] font-bold text-center text-5xl py-40 text-stone-50">CheckUp</div>  
     </div>
     <!--Description-->
@@ -88,13 +144,6 @@
         <p class="text-white text-center text-base sm:text-xl pb-14 px-6 sm:px-14">
             Check-up, which means to carry out annual regular physician checks and to be performed necessary examinations, is one of the strongest weapons in the hands of modern human in order to maintain a healthy life. Besides, it carries the purpose of referring the yet clinically asymptomatic diseases to treatment by early diagnosis. Chronic diseases with ongoing treatment are also kept under control with Check-up and follow-up protocols.
         </p>
-    </div>
-    <div class="{{display_status}}">
-        <hr class="text-white border-2 font-bold mx-14"></hr>
-        <div  class="inline-flex">
-            <button class="bg-indigio-500 px-2 py-1 text-white" type="button" id="create" onclick="addData()">"Add"</button>
-            <button class="bg-indigio-500 px-2 py-1 text-white" type="button" id="delete" onclick="deleteData()">"delete"</button>
-        </div>
     </div>
     <!--Table-->
     <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-700 py-10">
@@ -126,13 +175,19 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="rows">
+                        <tbody id="table">
                         </tbody>
                     </table>
-                    <button type="button" class="text-white bg-green-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-5 mb-2 dark:bg-green-600	dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-whatever="@getbootstrap">Create Checkup</button>
+                    <!--Buttonnya-->
+                    <button type="button" class="text-white bg-green-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-5 mb-2 dark:bg-green-600	dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Create Checkup</button>
+                    <button type="button" class="text-white bg-green-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-5 mb-2 dark:bg-green-600	dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Delete Checkup</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        document.onload = refreshData()
+        </script>
+        
     {% endblock content %}

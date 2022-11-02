@@ -1,18 +1,17 @@
+
 // Get data
 async function getDataCheckUp() {
     const url = '/checkup/json'
-      fetch(url)
+    return fetch(url)
            .then(response => response.json())
-           .then(json => console.log(json))
            .catch(_err => console.error(error))
 }
 
 // Get Data JSON ID
 async function getDataCheckUpID() {
     const url = '/checkup/refresh-json'
-    fetch(url)
+    return fetch(url)
          .then(response => response.json())
-         .then(json => console.log(json))
          .catch(_err => console.error(error))
 }
 
@@ -33,9 +32,9 @@ async function refreshData(){
       <th>${item.fields.name}</th>
       <th>${item.fields.date}</th>
       <th>${item.fields.doctor}</th>
-      <th>${item.fields.status}</th>
+      <th>${item.fields.status_checkup_type}</th>
       <th>${item.fields.recommendations}</th>
-      <th>${item.fields.payment}</th>
+      <th>${item.fields.paid}</th>
     </tr>` 
   })
   document.getElementById("table").innerHTML = htmlString
@@ -45,7 +44,7 @@ async function refreshData(){
 async function addData() {
   fetch("/checkup/create/", {
     method: "POST",
-    body: new FormData(document.querySelector('#create_checkup'))
+    body: new FormData(document.getElementById('create_checkup'))
   }).then(refreshData)
   return false
 }

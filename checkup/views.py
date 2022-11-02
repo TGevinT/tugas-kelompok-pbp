@@ -17,7 +17,7 @@ from django.core import serializers
 # show_checkup
 @login_required(login_url='/checkup/login/')
 def show_checkup(request):
-    data_checkup = Checkup.objects.filter(staff__user__contains=request.user.get_username())
+    data_checkup = Checkup.objects.filter(user=request.user)
     form = form_checkup()
     context = {
         'register_status':'hidden',
@@ -83,16 +83,20 @@ def create_checkup_ajax(request):
         name = request.POST.get('name')
         date = request.POST.get('date')
         doctor = request.POST.get('doctor')
-        status_checkup = request.POST.get('status_checkup_type')
+        status_checkup_type = request.POST.get('status_checkup_type')
         recommendations = request.POST.get('recommendations')
         paid = request.POST.get('paid')
-        create = Checkup(user=request.user,name=name,date=date,doctor=doctor,status_checkup=status_checkup,recommendations=recommendations,paid=paid)
+        if paid == "true":
+            paid = True
+        else:
+            paid = False
+        create = Checkup(user=request.user,name=name,date=date,doctor=doctor,status_checkup_type=status_checkup_type,recommendations=recommendations,paid=paid)
         create.save()
         return JsonResponse({"checkup":"new checkup"},status=200)
 
 @login_required(login_url="login/")
 def show_json(request):
-    data_checkup = Checkup.objects.filter(staff__user__contains=request.user.get_username())
+    data_checkup = Checkup.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json',data_checkup),content_type='application/json')
 
 def home(request):
