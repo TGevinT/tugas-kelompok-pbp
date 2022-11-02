@@ -103,4 +103,3 @@ def add_prescription(request):
             medicine=medicine,
         )
     return JsonResponse({}, status=200)
-
