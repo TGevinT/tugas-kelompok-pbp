@@ -8,7 +8,7 @@
 
 <div class = "login py-16 bg-blue-200">
 
-    <h1 class="text-5xl font-bold text-center pt-8"><span class="text-red-600">Child</span><span class="text-blue-600">care</span> Login</h1>
+    <h1 class="text-5xl font-bold text-center pt-8"><span class="text-red-600">Cashier</span>Login</h1>
     <h3 class="text-center mt-3 text-xl">Please Login Before Proceeding</h3>
 
     <form method="POST" action="">
@@ -18,7 +18,7 @@
                 <td><div class="login_username mt-4 font-bold mr-4">Username: </div></td>
                 <td><input type="text" name="username" placeholder="Username" class="form-control mt-4"></td>
             </tr>
-
+                    
             <tr>
                 <td><div class="login_password mt-4 font-bold">Password: </div></td>
                 <td><input type="password" name="password" placeholder="Password" class="form-control mt-4"></td>
@@ -30,6 +30,7 @@
             </tr>
         </table>
     </form>
+    
     <div class="control_login">
         {% if messages %}
                 {% for message in messages %}
@@ -38,7 +39,7 @@
         {% endif %}     
     </div>
         
-    <div class="register_block text-center mb-8">Belum mempunyai akun? <a class="font-bold text-blue-600 hover:text-blue-900" href="/childcare/register">Buat Akun</a></div>
+    <div class="register_block text-center mb-8">Belum mempunyai akun? <a class="font-bold text-blue-600 hover:text-blue-900" href="/kasir/register">Buat Akun</a></div>
 
 </div>
 
