@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+
+    <h1 id="head" class="text-center font-bold text-black-600">Login</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table id="table-login">
+            <tr>
+                <td id="login-text">Username: </td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td id="login-text">Password: </td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+        </table>
+        <br>
+             <td><input class="btn border-blue-500 text-blue-500" type="submit" value="Login" id="button-login"></td>
+         </br>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+    <br></br>
+    Belum mempunyai akun? <a href="{% url 'vaksin:register' %}">Buat Akun</a>
+
+</div>
+
+{% endblock content %}
