@@ -22,7 +22,6 @@ def show_kasir(request):
     }
     return render(request, 'kasir.html', context)
 
-@login_required(login_url="login/")
 def show_json(request):
 
     data = Data.objects.all()
@@ -110,9 +109,7 @@ def delete_bill_ajax(request, id):
     return JsonResponse({}, status=200)
 
 def no_login(request):
-    data_object = Data.objects.all()
     context = {
-        'data_object': data_object,
         'logout_status': 'hidden',
         'button_show' :'hidden',
         'path' : 'kasir',
