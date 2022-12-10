@@ -131,7 +131,7 @@ function getPaymentFailed(){
 
 function getForm(){
     $("#rows").empty();
-    $.get('json/', function(data) {
+    $.get('/kasir/json/', function(data) {
         $.each(data, function(index, value) { 
             var tag = ""
             if(value.fields.patient_status_payment){
