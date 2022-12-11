@@ -137,5 +137,25 @@ def flutter_add(request):
         data.save()
         return JsonResponse({}, status=200)
 
+@csrf_exempt
+def flutter_add(request):
+    data = json.loads(request.body)
+    patient = data['patient']
+    doctor = data['doctor']
+    description = data['description']
+    bill = data['bill']
+    if request.method == 'POST':
+        kasir = Data(
+                    user = request.user,
+                    patien = patient,
+                    doctor = doctor,
+                    description = description,
+                    bill = bill
+                    )
+        kasir.save()
+        return JsonResponse({"message": "Kasir Data berhasil ditambahkan", "status":200}, status=200)
+
+    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
+
 
 
