@@ -119,12 +119,25 @@ def flutter_add(request):
     data = json.loads(request.body)
     name = data['name']
     sideEffect = data['sideEffect']
-    dose = data['dose']
-    stock = data['stock']
+    dose = float(data['dose'])
+    stock = int(data['stock'])
     user = User.objects.get(username=request.user.username)
     if request.method == 'POST':
         vaksin = Vaksin(user=user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
         vaksin.save()
         return JsonResponse({"message": "vaksin berhasil ditambahkan", "status":200}, status=200)
+
+    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
+
+@csrf_exempt
+def flutter_edit_dose(request):
+    data = json.loads(request.body)
+    name = data['name']
+    dose = float(data['dose'])
+    if request.method == 'POST':
+        vaksin = Vaksin.objects.get(name=name)
+        vaksin.dose = dose
+        vaksin.save()
+         return JsonResponse({"message": "dosis berhasil diubah", "status":200}, status=200)
 
     return JsonResponse({"message": "wrong method", "status":502}, status = 502)
