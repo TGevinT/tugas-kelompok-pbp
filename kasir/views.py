@@ -127,17 +127,18 @@ def add(request):
         bill = request.POST.get('bill')
         user = request.user
 
-        Data.objects.create(
+        data = Data(
             user = user,
             patient = patient,
             doctor = doctor,
             description = description,
             bill = bill,
         )
+        data.save
 
         return JsonResponse(
             {
-            "pk": Data.pk,
+            "pk": data.pk,
             "user": str(request.user),
             "patient": patient,
             "doctor": doctor,
