@@ -119,7 +119,7 @@ def no_login(request):
     return render(request, 'kasir.html', context)
 
 @csrf_exempt
-def add(request):
+def add_flutter(request):
     if request.method == 'POST':
         patient = request.POST.get('patient')
         doctor = request.POST.get('doctor')
@@ -145,5 +145,6 @@ def add(request):
             "description": description,
             "bill" : bill,
         }, status=200)
+
 
 

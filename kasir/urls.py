@@ -13,7 +13,7 @@ urlpatterns= [
    path('payment/<int:id>', payment_bill_ajax, name="payment_bill_ajax"),
    path('delete/<int:id>', delete_bill_ajax, name="delete_bill_ajax" ),
    path('no_login/', no_login, name="no_login"),
-   path('add/', no_login, name='add'),
+   path('add_flutter/', no_login, name='add_flutter'),
 ]
 
  
