@@ -143,7 +143,7 @@ def flutter_add(request):
     patient = data['patient']
     doctor = data['doctor']
     description = data['description']
-    bill = data['bill']
+    bill = int(data['bill'])
     if request.method == 'POST':
         kasir = Data(
                     user = request.user,
