@@ -12,6 +12,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.http.response import JsonResponse
+import json
 
 @login_required(login_url='/vaksin/no-login/')
 def show_vaksin_info(request):
@@ -110,3 +113,16 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('vaksin:login'))
     response.delete_cookie('last_login')
     return response
+
+@csrf_exempt
+def flutter_add(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        sideEffect = request.POST.get("sideEffect")
+        dose = request.POST.get("dose")
+        stock = request.POST.get("stock")
+        vaksin = Vaksin(user=request.user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
+        vaksin.save()
+        return JsonResponse({"message": "vaksin berhasil ditambahkan", "status":200}, status=200)
+
+    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
