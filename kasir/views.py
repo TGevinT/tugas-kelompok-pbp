@@ -120,23 +120,20 @@ def no_login(request):
 
 @csrf_exempt
 def flutter_add(request):
-    data = json.loads(request.body)
-    patient = data['patient']
-    doctor = data['doctor']
-    description = data['description']
-    bill = data['bill']
     if request.method == 'POST':
-        kasir = Data(
-                    user = request.user,
-                    patient = patient,
-                    doctor = doctor,
-                    description = description,
-                    bill = bill,
-                    )
-        kasir.save()
-        return JsonResponse({"message": "Childcare Data berhasil ditambahkan", "status":200}, status=200)
+        patient = request.POST.get('patient')
+        doctor = request.POST.get('doctor')
+        description = request.POST.get('description')
+        bill = request.POST.get('patient')
 
-    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
+        data = Data(
+            user = request.user,
+            patient = patient,
+            doctor = doctor,
+            description = description,
+            bill = bill
+        )
+        return JsonResponse({}, status=200)
 
 
 
