@@ -119,8 +119,8 @@ def flutter_add(request):
     if request.method == 'POST':
         name = request.POST.get("name")
         sideEffect = request.POST.get("sideEffect")
-        dose = request.POST.get("dose")
-        stock = request.POST.get("stock")
+        dose = float(request.POST.get("dose"))
+        stock = int(request.POST.get("stock"))
         vaksin = Vaksin(user=request.user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
         vaksin.save()
         return JsonResponse({"message": "vaksin berhasil ditambahkan", "status":200}, status=200)
