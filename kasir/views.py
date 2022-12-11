@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url="no_login/")
 def show_kasir(request):
@@ -116,5 +117,33 @@ def no_login(request):
     }
 
     return render(request, 'kasir.html', context)
+
+@csrf_exempt
+def add(request):
+    if request.method == 'POST':
+        patient = request.POST.get('patient')
+        doctor = request.POST.get('doctor')
+        description = request.POST.get('description')
+        bill = request.POST.get('bill')
+        user = request.user
+
+        data = Data(
+            user = user,
+            patient = patient,
+            doctor = doctor,
+            description = description,
+            bill = bill,
+        )
+        data.save
+
+        return JsonResponse(
+            {
+            "pk": data.pk,
+            "user": str(request.user),
+            "patient": patient,
+            "doctor": doctor,
+            "description": description,
+            "bill" : bill,
+        }, status=200)
 
 

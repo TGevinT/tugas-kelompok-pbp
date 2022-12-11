@@ -15,4 +15,5 @@ urlpatterns= [
    path('add/', create_ajax, name="create_ajax"),
    path('delete/<int:id>', delete_row, name="delete_row"),
    path('no_login/', no_login, name="no_login"),
+   path('flutter_add/', flutter_add, name="flutter_add"),
 ]
