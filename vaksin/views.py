@@ -138,6 +138,6 @@ def flutter_edit_dose(request):
         vaksin = Vaksin.objects.get(name=name)
         vaksin.dose = dose
         vaksin.save()
-         return JsonResponse({"message": "dosis berhasil diubah", "status":200}, status=200)
+        return JsonResponse({"message": "dosis berhasil diubah", "status":200}, status=200)
 
     return JsonResponse({"message": "wrong method", "status":502}, status = 502)
