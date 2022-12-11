@@ -125,14 +125,16 @@ def flutter_add(request):
         doctor = request.POST.get('doctor')
         description = request.POST.get('description')
         bill = request.POST.get('patient')
+        user = request.user
 
         data = Data(
-            user = request.user,
+            user = user,
             patient = patient,
             doctor = doctor,
             description = description,
             bill = bill
         )
+        data.save()
         return JsonResponse({}, status=200)
 
 
