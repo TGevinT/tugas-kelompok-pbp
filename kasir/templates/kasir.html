@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+ {% block content %}
+
+ {% load static %}
+ <script src="{% static 'js/kasir/kasir_ajax.js' %}"></script>
+ <script>
+    getForm();
+ </script>
+
+
+ <div class="modal fade" id="staticBackdropCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Create Bill</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <form id="form-create">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div class="grid grid-rows-1 gap-4">
+                    {% for field in form%}
+                    <div class="grid grid-cols-3 place-items-center">
+                        <div class="col-span-1">{{field.label}}</div>
+                        <div class="col-span-2 border border-black">{{field}}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="close" class="btn btn-secondary border-red-600 text-red-600 hover:bg-red-600 hover:text-white" data-bs-dismiss="modal">Close</button>
+                <button type="button" onclick="submitHandlerCreate()" class="btn btn-primary text-blue-600 hover:text-white">Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdropPayment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Payment Bill</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <form id="form-payment">
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>                    
+  </div>
+
+  <div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Bill</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <form id="form-delete">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="p-4 flex flex-col">
+                        <label for = 'delete' class ="text-xl">Select the Bill : </label>
+                        <select id = 'delete' name = 'delete' class="w-full border border-black" ></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close" class="btn btn-secondary border-red-600 text-red-600 hover:bg-red-600 hover:text-white" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="submitHandlerDelete()" class="btn btn-primary text-blue-600 hover:text-white">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>                    
+  </div>
+
+  <div class="bg-stone-800">   
+    <hr class="mx-14 text-white border-2"></hr>
+    <div class="text-center text-white font-bold text-3xl pt-14 pb-7">
+        <div class="pb-7">Current Bill</div>
+        <div class="inline-flex">
+            <button id="create" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 {{button_show}}" data-bs-toggle="modal" data-bs-target="#staticBackdropCreate">Create Bill</button>
+            <button id="payment" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 {{button_show}}" onclick='getModalPayment()' data-bs-toggle="modal" data-bs-target="#staticBackdropPayment">Payment Bill</button>
+            <button id="update" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick="getForm()">Update Bill</button>
+            <button id="delete" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 {{button_show}}" onClick="getModalDelete()" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete">Delate Bill</button>
+        </div>
+    </div>
+    <div class="overflow-x-auto relative grid grid-cols-1 place-items-center pb-14">
+        <table class="w-5/6 text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Patient Name
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Check-in Date
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Doctor
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Bill
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="rows">
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+
+ {% endblock content %}
+
+ 

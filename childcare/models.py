@@ -4,8 +4,11 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Childcare(models.Model):
-    name = models.TextField()
+class Staff(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Childcare(Staff):
+    name = models.CharField(max_length = 100)
     date = models.DateField(auto_now=True)
-    doctor = models.TextField()
-    description = models.TextField()
+    doctor = models.CharField(max_length = 100)
+    description = models.CharField(max_length = 9999)
