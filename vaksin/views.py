@@ -116,12 +116,14 @@ def logout_user(request):
 
 @csrf_exempt
 def flutter_add(request):
+    data = json.loads(request.body)
+    name = data['name']
+    sideEffect = data['sideEffect']
+    dose = data['dose']
+    stock = data['stock']
+    user = User.object.get(username=request.username)
     if request.method == 'POST':
-        name = request.POST.get("name")
-        sideEffect = request.POST.get("sideEffect")
-        dose = float(request.POST.get("dose"))
-        stock = int(request.POST.get("stock"))
-        vaksin = Vaksin(user=request.user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
+        vaksin = Vaksin(user=user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
         vaksin.save()
         return JsonResponse({"message": "vaksin berhasil ditambahkan", "status":200}, status=200)
 
