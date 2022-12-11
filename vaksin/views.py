@@ -121,7 +121,7 @@ def flutter_add(request):
     sideEffect = data['sideEffect']
     dose = data['dose']
     stock = data['stock']
-    user = User.object.get(username=request.username)
+    user = User.objects.get(username=request.user.username)
     if request.method == 'POST':
         vaksin = Vaksin(user=user, name=name, side_effect=sideEffect, dose=dose, stock=stock)
         vaksin.save()
