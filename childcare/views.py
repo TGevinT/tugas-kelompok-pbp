@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from childcare.models import Childcare
 from django.http import HttpResponse, JsonResponse
@@ -114,3 +115,21 @@ def no_login(request):
     }
 
     return render(request, 'childcare.html', context)
+
+@csrf_exempt
+def flutter_add(request):
+    data = json.loads(request.body)
+    data_name = data['name']
+    data_doctor = data['doctor']
+    data_desc = data['description']
+    if request.method == 'POST':
+        childcare = Childcare(
+                    user = request.user,
+                    name = data_name,
+                    doctor = data_doctor,
+                    description = data_desc
+                    )
+        childcare.save()
+        return JsonResponse({"message": "Childcare Data berhasil ditambahkan", "status":200}, status=200)
+
+    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
