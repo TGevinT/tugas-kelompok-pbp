@@ -149,7 +149,7 @@ def delete_flutter(request, pk):
 @csrf_exempt
 def payment_bill_flutter(request, pk):
     if request.method == 'POST': 
-        data = Data.objects.get(pk=id)
+        data = Data.objects.get(pk=pk)
         data.patient_status_payment = not data.patient_status_payment
         data.save()
 
