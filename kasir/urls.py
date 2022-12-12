@@ -14,6 +14,7 @@ urlpatterns= [
    path('delete/<int:id>', delete_bill_ajax, name="delete_bill_ajax" ),
    path('no_login/', no_login, name="no_login"),
    path('add/', flutter_add, name='flutter_add'),
+   path('delete_flutter/<int:pk>/', delete_flutter, name='delete_flutter'),
 ]
 
  

@@ -140,6 +140,12 @@ def flutter_add(request):
             "bill" : bill,
         }, status=200)
 
+@csrf_exempt
+def delete_flutter(request, pk):
+    data = Data.objects.filter(pk=pk)
+    data.delete()
+    return JsonResponse({"message" : "berhasil delete"}, status=200)
+
 
 
 
