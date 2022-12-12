@@ -148,9 +148,11 @@ def delete_flutter(request, pk):
 
 @csrf_exempt
 def payment_bill_flutter(request, pk):
-    data = Data.objects.filter(pk=pk)
-    data.patient_status_payment = not data.patient_status_payment
-    data.save()
+    if request.method == 'POST': 
+        data = Data.objects.get(pk=id)
+        data.patient_status_payment = not data.patient_status_payment
+        data.save()
+
     return JsonResponse({"message" : "berhasil membayar"}, status=200)
 
 
