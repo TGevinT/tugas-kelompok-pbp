@@ -123,7 +123,7 @@ def flutter_add(request):
     statusCheckupType = data['status_checkup_type']
     recommendations = data['recommendations']
     paid = bool(data['paid'])
-    user = User.objects.get(username=request.user.username)
+    user = User.objects.get(request.user);
     if request.method == 'POST':
         checkup = Checkup(user=user, name=name, date=date,doctor=doctor, statusCheckupType=statusCheckupType,recommendations=recommendations,paid=paid)
         checkup.save()
