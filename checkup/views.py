@@ -116,17 +116,18 @@ def refresh_json(request):
 
 @csrf_exempt
 def flutter_add(request):
-    data = json.loads(request.body)
-    name = data['name']
-    date = DateTime.parse(data['date'])
-    doctor = (data['doctor'])
-    statusCheckupType = data['status_checkup_type']
-    recommendations = data['recommendations']
-    paid = bool(data['paid'])
-    user = User.objects.get(request.user);
     if request.method == 'POST':
+        data = json.loads(request.body)
+        name = data['name']
+        date = DateTime.parse(data['date'])
+        doctor = (data['doctor'])
+        statusCheckupType = data['status_checkup_type']
+        recommendations = data['recommendations']
+        paid = bool(data['paid'])
+        user = User.objects.get(request.user);
+
         checkup = Checkup(user=user, name=name, date=date,doctor=doctor, statusCheckupType=statusCheckupType,recommendations=recommendations,paid=paid)
         checkup.save()
         return JsonResponse({"message": "data checkup berhasil ditambahkan", "status":200}, status=200)
-
-    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
+    else:
+        return JsonResponse({"message": "wrong method", "status":502}, status = 502)
