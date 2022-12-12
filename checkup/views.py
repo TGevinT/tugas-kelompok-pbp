@@ -1,6 +1,7 @@
-from datetime import datetime
+
 from http.client import HTTPResponse
 from venv import create
+import datetime
 from django.shortcuts import *
 from checkup.models import Checkup,Staff
 from django.contrib.auth import authenticate,login,logout
@@ -11,8 +12,10 @@ from django.contrib import messages
 from checkup.forms import forms, form_checkup
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
-
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http.response import JsonResponse
+import json
+from django.contrib.auth.models import User
 
 # show_checkup
 @login_required(login_url='/checkup/login/')
@@ -108,5 +111,22 @@ def home(request):
     return render(request,'checkup.html',context)
 
 def refresh_json(request):
-    data_checkup = Checkup.objects.all()
+    data_checkup =Checkup.objects.all()
     return HttpResponse(serializers.serialize("json", data_checkup))
+
+@csrf_exempt
+def flutter_add(request):
+    data = json.loads(request.body)
+    name = data['name']
+    date = DateTime.parse(data['date'])
+    doctor = (data['doctor'])
+    statusCheckupType = data['status_checkup_type']
+    recommendations = data['recommendations']
+    paid = bool(data['paid'])
+    user = User.objects.get(username=request.user.username)
+    if request.method == 'POST':
+        checkup = Checkup(user=user, name=name, date=date,doctor=doctor, statusCheckupType=statusCheckupType,recommendations=recommendations,paid=paid)
+        checkup.save()
+        return JsonResponse({"message": "data checkup berhasil ditambahkan", "status":200}, status=200)
+
+    return JsonResponse({"message": "wrong method", "status":502}, status = 502)
