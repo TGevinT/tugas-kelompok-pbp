@@ -75,3 +75,11 @@ def register_user(request):
     
     context = {'form':form}
     return render(request, 'register.html', context)
+
+@csrf_exempt
+def logout_flutter(request):
+    logout(request)
+    return JsonResponse({
+            "status": True,
+            "message": "Berhasil"
+        }, status=200)
