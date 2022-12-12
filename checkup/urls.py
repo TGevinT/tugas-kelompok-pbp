@@ -13,7 +13,8 @@ urlpatterns = [
     path('create/', create_checkup_ajax, name='create_checkup_ajax'),
     path('json/',show_json,name='show_json'),
     path('refresh-json/',refresh_json,name='refresh_json'),
-    path('no_login',home,name='home')
+    path('no_login',home,name='home'),
+    path('flutter-add/', flutter_add, name='flutter_add'),
 ]
 
 
