@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-import json
+
 
 @login_required(login_url="no_login/")
 def show_kasir(request):
@@ -145,6 +145,13 @@ def delete_flutter(request, pk):
     data = Data.objects.filter(pk=pk)
     data.delete()
     return JsonResponse({"message" : "berhasil delete"}, status=200)
+
+@csrf_exempt
+def payment_bill_flutter(request, pk):
+    data = Data.objects.filter(pk=pk)
+    data.patient_status_payment = not data.patient_status_payment
+    data.save()
+    return JsonResponse({"message" : "berhasil membayar"}, status=200)
 
 
 
